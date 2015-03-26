@@ -38,8 +38,8 @@ module test_bench;
 	  end
 	
 	always #(CLKPERIOD/2) clock = ~clock;
-	top_with_mem	top_mem(	
-			.clock(clock), .reset(reset), .WEPin(WEPin), .WEAddress(WEAddress),
+	top_with_mem	Top_mem(	
+			.clock(clock), .reset(reset), .iMem_WEPin(WEPin), .WEAddress(WEAddress),
              .idataWrite(idataWrite),
              
 	    .topmem_out_iMem_data1_1(IData1_1) ,.topmem_out_iMem_data1_2(IData1_2) ,
