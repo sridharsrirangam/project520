@@ -41,7 +41,7 @@ module top (clock, reset,
 
 
 
-/************************ Wires *******************/	
+/************************ Wires *********************/	
    wire [10:0] top_gMYR_cacldRow; 
    wire [255:0] top_ySRAM_rowRead;
    
@@ -51,10 +51,11 @@ module top (clock, reset,
          .gYMR_row_addr(top_gMYR_cacldRow)
          );
 
-
-   getYMatAddress(.clock(clock), .reset(reset), 
+/*
+   getYMatAddress U1(.clock(clock), .reset(reset), 
                   .gYMA_row(15'd0), .gYMA_readData(top_ySRAM_rowRead),
                   .gYMA_row_addr1(top_gMYR_addr1), .gYMA_row_addr2(top_gMYR_addr2) );
+*/
 /*
 	Engine Data1 (.clock(clock), .reset(reset),
 	    .eng_iMem_data1(top_iMem_data1) ,.eng_iMem_data2(top_iMem_data2) ,

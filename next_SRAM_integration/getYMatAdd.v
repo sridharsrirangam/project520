@@ -1,4 +1,5 @@
-/* Module that gets Y Matrix Read Addresses */
+/*    Combinational Logic Ckt                   *
+ *    Module that gets Y Matrix Read Addresses. */
 
 module getYMatAddress(//clock, reset, 
                   gYMA_row, gYMA_readData, gYMA_row_addr1);//, gYMA_row_addr2 );
@@ -8,10 +9,8 @@ input [15:0] gYMA_row;
 input [255:0] gYMA_readData;
 
 output [10:0] gYMA_row_addr1;
-//output [10:0] gYMA_row_addr2;
 
 reg [10:0] gYMA_row_addr1;
-//reg [10:0] gYMA_row_addr2;
 
 
 always@(gYMA_row)
