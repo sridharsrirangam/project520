@@ -19,6 +19,19 @@ module test_bench;
 //	wire 	[9:0] 		address1, address2;
 //	wire				rd_en1, rd_en2;
 	
+   
+   integer data_file,scan_file;
+   integer isram_file,isram_scan;
+/*
+   initial
+   begin
+      data_file = $fopen("change_data1.txt","r");
+      if(data_file == 0) begin
+         $display(" File Handle was NULL\n");
+         $finish;
+      end
+    end
+*/
 	initial	begin
 	  	//$dumpfile("Tut2.vcd"); // save waveforms in this file
 	  	//$dumpvars;  // saves all waveforms
@@ -41,13 +54,14 @@ module test_bench;
 	top_with_mem	Top_mem(	
 			.clock(clock), .reset(reset), .iMem_WEPin(WEPin), .WEAddress(WEAddress),
              .idataWrite(idataWrite),
-             
+ /*            
 	    .topmem_out_iMem_data1_1(IData1_1) ,.topmem_out_iMem_data1_2(IData1_2) ,
          .topmem_out_iMem_data1_3(IData1_3) ,    .topmem_out_iMem_data1_4(IData1_4) ,
             .topmem_out_iMem_data1_5(IData1_5) ,
 	    .topmem_out_iMem_data2_1(IData2_1) ,.topmem_out_iMem_data2_2(IData2_2) ,
          .topmem_out_iMem_data2_3(IData2_3), .topmem_out_iMem_data2_4(IData2_4) ,
             .topmem_out_iMem_data2_5(IData2_5) 
+ */
              );
 	
 	

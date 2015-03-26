@@ -1,40 +1,52 @@
-module top_with_mem(clock, reset, iMem_WEPin, iMem_WEAddress, idataWrite,
+module top_with_mem(clock, reset,
+      iMem_WEPin, iMem_WEAddress, idataWrite,
+ /*
 	topmem_out_iMem_data1_1,topmem_out_iMem_data1_2,topmem_out_iMem_data1_3,
           topmem_out_iMem_data1_4,topmem_out_iMem_data1_5,
 	topmem_out_iMem_data2_1,topmem_out_iMem_data2_2,topmem_out_iMem_data2_3,
           topmem_out_iMem_data2_4,topmem_out_iMem_data2_5
+  */
       );
 
+/********** Module Inputs and Outputs **************/
 	input clock, reset,iMem_WEPin;
    input [239:0] idataWrite;
 	input 	[7:0] 		iMem_WEAddress;
 
+   input [15:0] top_chgTxt_row,top_chgTxt_col; //From change.txt
+
 //For testing purposes
-//
+
 	output 	[47:0] 	topmem_out_iMem_data1_1,topmem_out_iMem_data1_2,topmem_out_iMem_data1_3,
                         topmem_out_iMem_data1_4,topmem_out_iMem_data1_5;
 	output 	[47:0] 	topmem_out_iMem_data2_1,topmem_out_iMem_data2_2,topmem_out_iMem_data2_3,
                         topmem_out_iMem_data2_4,topmem_out_iMem_data2_5;
 	
+/************************ Wires *******************/	
 	
 	wire 	[239:0] 		idata1;
 	wire 	[239:0] 		idata2;
 	wire 	[7:0] 		iSRAM_Address1;
 	wire 	[7:0] 		iSRAM_Address2;
+
+   wire [255:0] top_ySRAM_rowRead;
 	
+/***************** Modules Instan *******************/
 	top top_inst (	.clock(clock),  .reset(reset), 
-
 	         .top_iMem_data1(idata1),.top_iMem_data1_2(idata2),
+            .top_chgTxt_row,     .top_chgTxt_col,
+            .top_ySRAM_rowRead,  .top_gMYR_cacldRow,
+            .top_gMYR_addr1,     .top_gMYR_addr2, 
 
 
-// for testing 
+/* for testing 
 	    .top_out_iMem_data1_1(topmem_out_iMem_data1_1) ,.top_out_iMem_data1_2(topmem_out_iMem_data1_2) ,
          .top_out_iMem_data1_3(topmem_out_iMem_data1_3) ,    .top_out_iMem_data1_4(topmem_out_iMem_data1_4) ,
             .top_out_iMem_data1_5(topmem_out_iMem_data1_5) ,
 	    .top_out_iMem_data2_1(topmem_out_iMem_data2_1) ,.top_out_iMem_data2_2(topmem_out_iMem_data2_2) ,
          .top_out_iMem_data2_3(topmem_out_iMem_data2_3), .top_out_iMem_data2_4(topmem_out_iMem_data2_4) ,
             .top_out_iMem_data2_5(topmem_out_iMem_data2_5), 
-
+*/
 				 .iSRAM_Address1(iSRAM_Address1), .iSRAM_Address2(iSRAM_Address2) 
 			);
 
@@ -45,7 +57,7 @@ module top_with_mem(clock, reset, iMem_WEPin, iMem_WEAddress, idataWrite,
             .ReadBus1(idata1), .ReadBus2(idata2));	
 
 //Y SRAM
-   y_sram Y_mem(.clock(clock), .WE(yMem_WEPin), .WriteAddress(yMem_WEAddress),
+   y_sram Y_mem(.clock(clock), .WE(1'b0), .WriteAddress(yMem_WEAddress),
          .ReadAddress1(ySRAM_Address1), .ReadAddress2(ySRAM_Address2), .WriteBus(ydataWrite),
             .ReadBus1(ydata1), .ReadBus2(ydata2));	
 
