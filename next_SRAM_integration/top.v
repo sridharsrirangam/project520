@@ -20,7 +20,7 @@ module top (clock, reset,
 	input clock;
 	input	reset;
 	
-   input [15:0] top_chgTxt_row,top_chgTxt_col; //From change.txt
+   input [10:0] top_chgTxt_row,top_chgTxt_col; //From change.txt
 	
 	input [239:0] top_iMem_data1,top_iMem_data2;
 
