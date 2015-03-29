@@ -10,8 +10,11 @@ module top (clock, reset,
                            top_out_iMem_data2_5,
   */
       top_chgTxt_row,top_chgTxt_col,
-      top_ySRAM_rowRead, top_gMYR_cacldRow,
-      top_gMYR_addr1,top_gMYR_addr2, 
+      top_ySRAM_rowRead, 
+
+      top_yMatAddrIn1,top_yMatAddrIn2, 
+      top_yMatAddrOut1,top_yMatAddrOut2, 
+
 	   iSRAM_Address1 , iSRAM_Address2 
        
 	   );
@@ -21,6 +24,7 @@ module top (clock, reset,
 	input	reset;
 	
    input [10:0] top_chgTxt_row,top_chgTxt_col; //From change.txt
+   output [10:0] top_yMatAddrIn1,top_yMatAddrIn2; 
 	
 	input [239:0] top_iMem_data1,top_iMem_data2;
 
@@ -34,8 +38,7 @@ module top (clock, reset,
                         top_out_iMem_data2_3, top_out_iMem_data2_4,
                            top_out_iMem_data2_5;
 */
-   output [10:0] top_gMYR_cacldRow; 
-   output [10:0] top_gMYR_addr1,top_gMYR_addr2; 
+   output [10:0] top_yMatAddrOut1,top_yMatAddrOut2; 
 
 	output [7:0] 	iSRAM_Address1,iSRAM_Address2;
 
@@ -47,14 +50,17 @@ module top (clock, reset,
    
 
 /***************** Modules Instan *******************/
-   getYMatRow matRow (.clock(clock), .reset(reset), .gYMR_row_in(15'd0),
-         .gYMR_row_addr(top_gMYR_cacldRow)
-         );
 
+yAddrDecodr unit_yAD1 (.clock(clock), .reset(reset), 
+      .yAD_readRowNum(top_chgTxt_row),
+      .yAD_readAddr1(top_yMatAddrIn1),  .yAD_readAddr2(top_yMatAddrIn2), 
+      .yAD_outAddr1(top_yMatAddrOut1),   .yAD_outAddr2(top_yMatAddrOut2),
+      .yAD_readRowData(top_ySRAM_rowRead),
+      );
 /*
    getYMatAddress U1(.clock(clock), .reset(reset), 
                   .gYMA_row(15'd0), .gYMA_readData(top_ySRAM_rowRead),
-                  .gYMA_row_addr1(top_gMYR_addr1), .gYMA_row_addr2(top_gMYR_addr2) );
+                  .gYMA_row_addr1(top_yMatAddrOut1), .gYMA_row_addr2(top_yMatAddrOut2) );
 */
 /*
 	Engine Data1 (.clock(clock), .reset(reset),
